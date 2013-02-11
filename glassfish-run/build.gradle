@@ -1,0 +1,108 @@
+
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'signing'
+
+
+ext {
+    glassfish_version = '3.1.2.2' 
+    slf4j_version = "1.7.2@jar"
+}
+
+group = 'com.github.martins1930.gradle' 
+version = '0.0.1-SNAPSHOT'
+
+
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from 'build/docs/javadoc'
+}
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
+
+artifacts {
+    archives jar
+    archives javadocJar
+    archives sourcesJar
+}
+
+signing {
+    sign configurations.archives
+}
+
+configurations {
+    deployerJars
+    providedCompile
+}
+
+sourceSets.main.compileClasspath += configurations.providedCompile
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    deployerJars "org.apache.maven.wagon:wagon-http:1.0-beta-2"
+    providedCompile "org.slf4j:slf4j-api:${slf4j_version}"
+    compile  "org.glassfish.main.extras:glassfish-embedded-all:${glassfish_version}"  
+    compile  "commons-io:commons-io:2.4"    
+}
+
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signPom(deployment) }            
+            configuration = configurations.deployerJars
+//FILE            
+//            repository(url: uri('../repo'))
+//nexus2mvn
+//                repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2") {
+//                  authentication(userName: sonatypeUsername, password: sonatypePassword)
+//                }
+//nexuslocal
+//                repository(url: "http://localhost:8081/nexus/content/repositories/releases/") {
+                repository(url: "http://localhost:8081/nexus/content/repositories/snapshots/") {
+                  authentication(userName: nexusLocalU, password: nexusLocalP)
+                }
+
+            pom.project {
+                packaging = 'jar'
+                name = "${project.name}"
+                description = "TODO DESC !!"
+                url = "https://github.com/martins1930/jettyMulti"
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        distribution 'repo'
+                    }
+                }
+                scm {
+                        connection 'scm:git:git://github.com/martins1930/jettyMulti.git'
+                        developerConnection 'scm:git:ssh://git@github.com:martins1930/jettyMulti.git'
+                        url 'https://github.com/martins1930/jettyMulti.git'
+                }               
+
+
+            developers {
+                    developer {
+                            id 'martins1930'
+                            email 'martins1930@gmail.com'
+                            name 'Martin Steffen'
+                            organization 'Martin Steffen'
+                            organizationUrl 'https://github.com/martins1930'
+                            roles {
+                                    role 'Developer'
+                            }
+                    }
+            }                
+            }
+
+        }
+    }
+}
