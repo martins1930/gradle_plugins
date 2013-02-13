@@ -10,7 +10,7 @@ ext {
 }
 
 group = 'com.github.martins1930.gradle' 
-version = '0.0.1-RELEASE'
+version = '0.0.2-RELEASE'
 
 
 
@@ -70,7 +70,7 @@ uploadArchives {
             
 //nexuslocal
 //                repository(url: "http://localhost:8081/nexus/content/repositories/releases/") {
-////                repository(url: "http://localhost:8081/nexus/content/repositories/snapshots/") {
+//                repository(url: "http://localhost:8081/nexus/content/repositories/snapshots/") {
 //                  authentication(userName: nexusLocalU, password: nexusLocalP)
 //                }
 
