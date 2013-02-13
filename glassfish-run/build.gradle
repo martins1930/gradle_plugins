@@ -10,7 +10,7 @@ ext {
 }
 
 group = 'com.github.martins1930.gradle' 
-version = '0.0.1-SNAPSHOT'
+version = '0.0.1-RELEASE'
 
 
 
@@ -60,21 +60,25 @@ uploadArchives {
             configuration = configurations.deployerJars
 //FILE            
 //            repository(url: uri('../repo'))
+
+            
 //nexus2mvn
-//                repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2") {
-//                  authentication(userName: sonatypeUsername, password: sonatypePassword)
-//                }
+                repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2") {
+                  authentication(userName: sonatypeUsername, password: sonatypePassword)
+                }
+
+            
 //nexuslocal
 //                repository(url: "http://localhost:8081/nexus/content/repositories/releases/") {
-                repository(url: "http://localhost:8081/nexus/content/repositories/snapshots/") {
-                  authentication(userName: nexusLocalU, password: nexusLocalP)
-                }
+////                repository(url: "http://localhost:8081/nexus/content/repositories/snapshots/") {
+//                  authentication(userName: nexusLocalU, password: nexusLocalP)
+//                }
 
             pom.project {
                 packaging = 'jar'
                 name = "${project.name}"
-                description = "TODO DESC !!"
-                url = "https://github.com/martins1930/jettyMulti"
+                description = "Project with a class that have a main method to run a Glassfish embedded instance"
+                url = "https://github.com/martins1930/gradle_plugins"
                 licenses {
                     license {
                         name 'The Apache Software License, Version 2.0'
@@ -83,9 +87,9 @@ uploadArchives {
                     }
                 }
                 scm {
-                        connection 'scm:git:git://github.com/martins1930/jettyMulti.git'
-                        developerConnection 'scm:git:ssh://git@github.com:martins1930/jettyMulti.git'
-                        url 'https://github.com/martins1930/jettyMulti.git'
+                        connection 'scm:git:git://github.com/martins1930/gradle_plugins.git'
+                        developerConnection 'scm:git:ssh://git@github.com:martins1930/gradle_plugins.git'
+                        url 'https://github.com/martins1930/gradle_plugins.git'
                 }               
 
 
