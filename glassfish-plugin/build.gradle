@@ -3,12 +3,8 @@ apply plugin: 'maven'
 apply plugin: 'signing'
 
 
-//ext {
-//    glassfish_version = '3.1.2.2' 
-//}
-
 group = 'com.github.martins1930.gradle' 
-version = '0.0.1-SNAPSHOT'
+version = '0.0.2-RELEASE'
 
 task groovydocJar(type: Jar, dependsOn: groovydoc) {
     classifier = 'javadoc'
@@ -39,9 +35,7 @@ repositories {
 }
 
 dependencies {
-    deployerJars "org.apache.maven.wagon:wagon-http:1.0-beta-2"
-    //ver de sacar la dependencia de glassfish
-//    compile  "org.glassfish.main.extras:glassfish-embedded-all:${glassfish_version}"    
+    deployerJars "org.apache.maven.wagon:wagon-http:1.0-beta-2" 
     compile  "commons-io:commons-io:2.4"    
     compile gradleApi()
     groovy localGroovy()    
@@ -55,21 +49,24 @@ uploadArchives {
             configuration = configurations.deployerJars
 //FILE            
 //            repository(url: uri('../repo'))
+
+            
 //nexus2mvn
-//                repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2") {
-//                  authentication(userName: sonatypeUsername, password: sonatypePassword)
-//                }
-//nexuslocal
-//                repository(url: "http://localhost:8081/nexus/content/repositories/releases/") {
-                repository(url: "http://localhost:8081/nexus/content/repositories/snapshots/") {
-                  authentication(userName: nexusLocalU, password: nexusLocalP)
+                repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2") {
+                  authentication(userName: sonatypeUsername, password: sonatypePassword)
                 }
+
+//nexuslocal
+////                repository(url: "http://localhost:8081/nexus/content/repositories/releases/") {
+//                repository(url: "http://localhost:8081/nexus/content/repositories/snapshots/") {
+//                  authentication(userName: nexusLocalU, password: nexusLocalP)
+//                }
 
             pom.project {
                 packaging = 'jar'
                 name = "${project.name}"
-                description = "TODO DESC !!"
-                url = "https://github.com/martins1930/jettyMulti"
+                description = "Gradle Glassfish plugin. This gradle plugin run a Glassfish embedded instance with the task glassfishRun"
+                url = "https://github.com/martins1930/gradle_plugins"
                 licenses {
                     license {
                         name 'The Apache Software License, Version 2.0'
@@ -78,9 +75,9 @@ uploadArchives {
                     }
                 }
                 scm {
-                        connection 'scm:git:git://github.com/martins1930/jettyMulti.git'
-                        developerConnection 'scm:git:ssh://git@github.com:martins1930/jettyMulti.git'
-                        url 'https://github.com/martins1930/jettyMulti.git'
+                        connection 'scm:git:git://github.com/martins1930/gradle_plugins.git'
+                        developerConnection 'scm:git:ssh://git@github.com:martins1930/gradle_plugins.git'
+                        url 'https://github.com/martins1930/gradle_plugins.git'
                 }               
 
 

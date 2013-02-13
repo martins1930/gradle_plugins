@@ -13,6 +13,14 @@ import org.gradle.api.Task
 
 public class GlassfishPlugin implements Plugin<Project>  {
 	
+//http://docs.oracle.com/cd/E18930_01/html/821-2433/deploy-1.html#SJSASEEREFMANdeploy-1    
+//--libraries
+//
+//    A comma-separated list of library JAR files. 
+//    Specify the library JAR files by their relative or absolute paths. 
+//    Specify relative paths relative to domain-dir/lib/applibs. 
+//    The libraries are made available to the application in the order specified.
+    
     @Override
     public void apply(Project project) {
     
@@ -25,7 +33,7 @@ public class GlassfishPlugin implements Plugin<Project>  {
         
         project.dependencies {
             //            glassfish "org.glassfish.main.extras:glassfish-embedded-all:3.1.2.2"
-            glassfish "com.github.martins1930.gradle:glassfish-run:0.0.1-SNAPSHOT"
+            glassfish "com.github.martins1930.gradle:glassfish-run:0.0.1-RELEASE"
             providedCompile "javax:javaee-api:6.0"
         }
 
