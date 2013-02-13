@@ -4,7 +4,7 @@ apply plugin: 'signing'
 
 
 group = 'com.github.martins1930.gradle' 
-version = '0.0.2-RELEASE'
+version = '0.1.0-RELEASE'
 
 task groovydocJar(type: Jar, dependsOn: groovydoc) {
     classifier = 'javadoc'
@@ -57,7 +57,7 @@ uploadArchives {
                 }
 
 //nexuslocal
-////                repository(url: "http://localhost:8081/nexus/content/repositories/releases/") {
+//                repository(url: "http://localhost:8081/nexus/content/repositories/releases/") {
 //                repository(url: "http://localhost:8081/nexus/content/repositories/snapshots/") {
 //                  authentication(userName: nexusLocalU, password: nexusLocalP)
 //                }

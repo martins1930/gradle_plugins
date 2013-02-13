@@ -32,8 +32,7 @@ public class GlassfishPlugin implements Plugin<Project>  {
         }
         
         project.dependencies {
-            //            glassfish "org.glassfish.main.extras:glassfish-embedded-all:3.1.2.2"
-            glassfish "com.github.martins1930.gradle:glassfish-run:0.0.1-RELEASE"
+            glassfish "com.github.martins1930.gradle:glassfish-run:0.0.2-RELEASE"
             providedCompile "javax:javaee-api:6.0"
         }
 
@@ -64,7 +63,7 @@ public class GlassfishPlugin implements Plugin<Project>  {
             main = "com.github.martins1930.gradle.MainGlassfishRun"
             classpath project.configurations.glassfish;
             classpath project.configurations.runtime;
-//            classpath project.sourceSets.main.runtimeClasspath;
+            classpath project.sourceSets.main.output.resourcesDir;
             args = [proyName ,
                 webappDirName,
                 classDirName,
@@ -72,6 +71,13 @@ public class GlassfishPlugin implements Plugin<Project>  {
             dependsOn = ['glassfishSyncClasses']
             description = "Task to run exploded war with Glassfish"
             group = "glassfish"
+            doFirst {
+                args project.glassfish.gfPort != null ? project.glassfish.gfPort : ""           
+                args project.glassfish.gfPortSecure != null ? project.glassfish.gfPortSecure : "" 
+                args project.glassfish.gfKeyStore != null ? project.glassfish.gfKeyStore : ""        
+                args project.glassfish.gfKeyStorePassword != null ? project.glassfish.gfKeyStorePassword : ""         
+                args project.glassfish.gfAutomaticDeps != null ? project.glassfish.gfAutomaticDeps : ""                   
+            }
 
         }
 
